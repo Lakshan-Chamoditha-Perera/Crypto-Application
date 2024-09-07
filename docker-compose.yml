@@ -1,0 +1,34 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: crypto
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 1234
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - shared-network
+
+  app:
+    build:
+      context: .
+    ports:
+      - "5000:5000"
+    environment:
+      - DATABASE_URI=mysql+pymysql://root:1234@db:3306/crypto
+    depends_on:
+      - db
+    networks:
+      - shared-network
+
+volumes:
+  db_data:
+
+networks:
+  shared-network:
+    external: true
