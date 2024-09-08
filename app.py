@@ -3,7 +3,6 @@ from com.crypto.models.models import db
 from com.crypto.config.config import Config
 from controller.user_controller import user_controller
 from controller.transaction_controller import transaction_controller
-import pymysql
 
 # Use PyMySQL to act as MySQLdb
 pymysql.install_as_MySQLdb()
