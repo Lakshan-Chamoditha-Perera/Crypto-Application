@@ -1,10 +1,8 @@
-from com.crypto.repositories.user_repo import UserRepository
-
+from repositories.user_repo import UserRepository
 
 class UserService:
     @staticmethod
     def create_user(email, name, password):
-        # Business logic (e.g., hashing password) goes here
         return UserRepository.create_user(email, name, password)
 
     @staticmethod

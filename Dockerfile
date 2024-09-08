@@ -9,7 +9,11 @@ COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY com/crypto /app
+# Copy the entire project into /app
+COPY . /app
+
+# Add /app to PYTHONPATH so that Python can find the 'com' package
+ENV PYTHONPATH=/app
 
 EXPOSE 5000
 
