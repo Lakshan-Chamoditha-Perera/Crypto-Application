@@ -14,6 +14,7 @@ COPY . /app
 
 # Add /app to PYTHONPATH so that Python can find the 'com' package
 ENV PYTHONPATH=/app
+ENV DATABASE_URI="mongodb://qa-db-url:27017/mydb"
 
 EXPOSE 5000
 

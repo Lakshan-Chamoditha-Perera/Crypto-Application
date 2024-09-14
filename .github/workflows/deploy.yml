@@ -1,0 +1,59 @@
+name: CI/CD Pipeline for QA
+
+on:
+  push:
+    branches:
+      - qa
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build Docker image
+        run: |
+          docker build -t myapp:$GITHUB_SHA .
+
+      - name: Tag and Push Docker image to ECR
+        run: |
+          docker tag myapp:$GITHUB_SHA 123456789012.dkr.ecr.us-east-1.amazonaws.com/myapp:qa
+          docker push 123456789012.dkr.ecr.us-east-1.amazonaws.com/myapp:qa
+
+  # Run Unit and Integration Tests
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.10
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run unit tests
+        run: |
+          python -m unittest discover tests  # Adjust this command if needed
+
+  # Deploy to QA Environment (Minikube or Staging)
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to Minikube or Staging
+        run: |
+          kubectl apply -f deployment-qa.yaml
+          kubectl apply -f service.yaml

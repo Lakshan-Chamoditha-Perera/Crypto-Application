@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: myapp-service-qa
+  labels:
+    app: myapp
+    environment: qa
+spec:
+  type: NodePort  # Change to LoadBalancer if deploying to cloud providers like AWS or GCP
+  selector:
+    app: myapp
+    environment: qa
+  ports:
+    - protocol: TCP
+      port: 80  # Exposed port
+      targetPort: 5000  # Port where the app is running inside the container
+      nodePort: 30007  # Port on the Node (if using Minikube or local Kubernetes)
