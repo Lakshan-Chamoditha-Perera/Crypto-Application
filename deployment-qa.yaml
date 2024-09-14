@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-qa
+  labels:
+    app: myapp
+    environment: qa
+spec:
+  replicas: 2  # QA can have 2 replicas for load testing
+  selector:
+    matchLabels:
+      app: myapp
+      environment: qa
+  template:
+    metadata:
+      labels:
+        app: myapp
+        environment: qa
+    spec:
+      containers:
+        - name: myapp-container
+          image: shanperera53/myapp:qa  # Replace with your QA image tag
+          ports:
+            - containerPort: 5000
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "500m"
+            limits:
+              memory: "512Mi"
+              cpu: "1"
+          env:
+            - name: DATABASE_URI
+              value: "mongodb://qa-db-url:27017/mydb"  # Replace with your QA database URL
+            - name: ENVIRONMENT
+              value: "qa"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 15
+            periodSeconds: 20
