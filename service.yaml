@@ -3,10 +3,11 @@ kind: Service
 metadata:
   name: myapp-service
 spec:
+  type: NodePort  # Use LoadBalancer if in a cloud environment that supports it
   selector:
     app: myapp
+    version: blue  # initially set to blue
   ports:
     - protocol: TCP
       port: 80
       targetPort: 5000
-  type: LoadBalancer
