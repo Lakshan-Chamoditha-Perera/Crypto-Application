@@ -3,9 +3,7 @@ name: Deploy to AWS
 on:
   push:
     branches:
-      - dev
-      - qa
-      - prod
+      - prod  # Only trigger deployment on pushes to the prod branch
 
 jobs:
   deploy:
