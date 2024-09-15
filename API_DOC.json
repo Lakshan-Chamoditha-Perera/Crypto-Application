@@ -1,0 +1,201 @@
+{
+  "info": {
+    "name": "Crypto Application API",
+    "description": "This API allows managing users and transactions in the Crypto Application.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "Create a User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"email\": \"user@example.com\",\n    \"name\": \"John Doe\",\n    \"password\": \"password123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/user",
+              "protocol": "http",
+              "host": [
+                "127.0.0.1"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "user"
+              ]
+            },
+            "description": "Creates a new user in the system."
+          }
+        },
+        {
+          "name": "Retrieve a User",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/user/{{user_id}}",
+              "protocol": "http",
+              "host": [
+                "127.0.0.1"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "user",
+                "{{user_id}}"
+              ],
+              "variable": [
+                {
+                  "key": "user_id",
+                  "value": "user_id"
+                }
+              ]
+            },
+            "description": "Retrieves details of a specific user by user ID."
+          }
+        },
+        {
+          "name": "List All Users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/users",
+              "protocol": "http",
+              "host": [
+                "127.0.0.1"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "users"
+              ]
+            },
+            "description": "Lists all users registered in the system."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Transactions",
+      "item": [
+        {
+          "name": "Create a Transaction",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"value\": 100,\n    \"sender_id\": \"senderId\",\n    \"receiver_id\": \"receiverId\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/transaction",
+              "protocol": "http",
+              "host": [
+                "127.0.0.1"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "transaction"
+              ]
+            },
+            "description": "Creates a new financial transaction between two users."
+          }
+        },
+        {
+          "name": "Retrieve a Transaction",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/transaction/{{transaction_id}}",
+              "protocol": "http",
+              "host": [
+                "127.0.0.1"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "transaction",
+                "{{transaction_id}}"
+              ],
+              "variable": [
+                {
+                  "key": "transaction_id",
+                  "value": "transaction_id"
+                }
+              ]
+            },
+            "description": "Retrieves details of a specific transaction by transaction ID."
+          }
+        },
+        {
+          "name": "List All Transactions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "http://127.0.0.1:5000/api/transactions",
+              "protocol": "http",
+              "host": [
+                "127.0.0.1"
+              ],
+              "port": "5000",
+              "path": [
+                "api",
+                "transactions"
+              ]
+            },
+            "description": "Lists all transactions recorded in the system."
+          }
+        }
+      ]
+    }
+  ]
+}
